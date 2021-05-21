@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { MessageDto } from 'src/dtos/message-dto';
 import MessageRepository from 'src/mongo/repository/message.repository';
 
@@ -12,8 +12,13 @@ export class MessagesService {
         return this.messageRepository.sendMessage(newMessage);    
     } 
 
-    getAllMessages(limit: string, offset: string): Promise<MessageDto[]> {
-        return this.messageRepository.getAllMessages(limit, offset);
+    async getAllMessages(limit: string, offset: string): Promise<MessageDto[]> {
+        const allMessages = await this.messageRepository.getAllMessages(limit, offset);
+
+        if(!allMessages.length)
+            throw new BadRequestException('Nenhuma mensagem enviada ao servidor')
+        return allMessages;
+
     } 
 
     getMessagesByTargetId(targetId: number): Promise<MessageDto[]> {

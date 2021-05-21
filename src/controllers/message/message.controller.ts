@@ -1,5 +1,4 @@
 import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
-import { isNumber, IsNumber } from 'class-validator';
 import { MessageDto } from 'src/dtos/message-dto';
 import { MessagesService } from 'src/services/messages/messages.service';
 
@@ -11,22 +10,22 @@ export class MessageController {
     }
     
     @Get('/target/:targetId')
-    getMessageByTargetId(@Param('targetId') targetId: number) {
-        return this.messageService.getMessagesByTargetId(targetId)
+    async getMessageByTargetId(@Param('targetId') targetId: number) {
+        return await this.messageService.getMessagesByTargetId(targetId)
     }
 
     @Get('/from/:fromId')
-    getMessagesFrom(@Param('fromId') fromId: number) {
-        return this.messageService.getMessagesFrom(fromId)
+    async getMessagesFrom(@Param('fromId') fromId: number) {
+        return await this.messageService.getMessagesFrom(fromId)
     }
 
     @Get('/all')
-    getAllMessages(@Query('limit') limit: string, @Query('offset') offset: string): Promise<MessageDto[]> {
-        return this.messageService.getAllMessages(limit, offset);
+    async getAllMessages(@Query('limit') limit: string, @Query('offset') offset: string): Promise<MessageDto[]> {
+        return await this.messageService.getAllMessages(limit, offset);
     }
 
     @Post()
-    sendMessage(@Body() newMessage:MessageDto): Promise<MessageDto> {
-        return this.messageService.sendMessage(newMessage) 
+    async sendMessage(@Body() newMessage:MessageDto): Promise<MessageDto> {
+        return await this.messageService.sendMessage(newMessage) 
     }
 }
