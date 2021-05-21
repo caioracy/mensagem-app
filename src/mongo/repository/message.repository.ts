@@ -11,9 +11,17 @@ export default class MessageRepository {
         @InjectModel('message') private readonly messageModel: Model<Message>
     ){}
 
-    sendMessage(newMessage: MessageDto){
+    async sendMessage(newMessage: MessageDto): Promise<Message> {
         const sendedMessage = new this.messageModel(newMessage);
-        return sendedMessage.save();
+        return  await sendedMessage.save();
+    }
+
+    async getAllMessages(): Promise<MessageDto[]>  {
+        return await this.messageModel.find({}, { __v: false}).exec();
+    }
+
+    async getMessagesByTargetId(targetId: number): Promise<MessageDto[]> {
+        return await this.messageModel.find({target_id: targetId}).exec();
     }
 
 }

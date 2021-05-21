@@ -9,14 +9,14 @@ export class MessageController {
 
     }
     
-    @Get('/:targetId')
-    getMessageByTargetId(@Param('targetId') targetId: string) {
-        return 'CU'
+    @Get('/target/:targetId')
+    getMessageByTargetId(@Param('targetId') targetId: number) {
+        return this.messageService.getMessagesByTargetId(targetId)
     }
 
     @Get('/all')
     getAllMessages(@Query('limit') limit: number, @Query('offset') offset: number) {
-        return {...{limit, offset}}
+        return this.messageService.getAllMessages(), {...{limit, offset}}
     }
 
     @Post()

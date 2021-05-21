@@ -10,5 +10,13 @@ export class MessagesService {
 
     sendMessage(newMessage: MessageDto): Promise<MessageDto> {
         return this.messageRepository.sendMessage(newMessage);    
-    }    
+    } 
+
+    getAllMessages(): Promise<MessageDto[]>{
+        return this.messageRepository.getAllMessages();
+    }
+
+    getMessagesByTargetId(targetId: number): Promise<MessageDto[]> {
+        return this.messageRepository.getMessagesByTargetId(targetId);
+    }
 }
