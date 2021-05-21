@@ -19,4 +19,8 @@ export class MessagesService {
     getMessagesByTargetId(targetId: number): Promise<MessageDto[]> {
         return this.messageRepository.getMessagesByTargetId(targetId);
     }
+
+    getMessagesFrom(fromId: number): Promise<MessageDto[]> {
+        return this.messageRepository.getMessagesFrom(fromId);
+    }
 }

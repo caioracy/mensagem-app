@@ -24,4 +24,8 @@ export default class MessageRepository {
         return await this.messageModel.find({target_id: targetId}, { __v: false}).exec();
     }
 
+    async getMessagesFrom(from: number): Promise<MessageDto[]> {
+        return await this.messageModel.find({from: from}, { __v: false}).exec();
+    }
+
 }

@@ -15,6 +15,11 @@ export class MessageController {
         return this.messageService.getMessagesByTargetId(targetId)
     }
 
+    @Get('/from/:fromId')
+    getMessagesFrom(@Param('fromId') fromId: number) {
+        return this.messageService.getMessagesFrom(fromId)
+    }
+
     @Get('/all')
     getAllMessages(@Query('limit') limit: string, @Query('offset') offset: string): Promise<MessageDto[]> {
         return this.messageService.getAllMessages(limit, offset);
