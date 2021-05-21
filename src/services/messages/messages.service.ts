@@ -12,9 +12,9 @@ export class MessagesService {
         return this.messageRepository.sendMessage(newMessage);    
     } 
 
-    getAllMessages(): Promise<MessageDto[]>{
-        return this.messageRepository.getAllMessages();
-    }
+    getAllMessages(limit: string, offset: string): Promise<MessageDto[]> {
+        return this.messageRepository.getAllMessages(limit, offset);
+    } 
 
     getMessagesByTargetId(targetId: number): Promise<MessageDto[]> {
         return this.messageRepository.getMessagesByTargetId(targetId);

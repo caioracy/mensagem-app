@@ -13,15 +13,15 @@ export default class MessageRepository {
 
     async sendMessage(newMessage: MessageDto): Promise<Message> {
         const sendedMessage = new this.messageModel(newMessage);
-        return  await sendedMessage.save();
+        return await sendedMessage.save();
     }
 
-    async getAllMessages(): Promise<MessageDto[]>  {
-        return await this.messageModel.find({}, { __v: false}).exec();
+    async getAllMessages(limit: string, offset: string): Promise<MessageDto[]>  {
+        return await this.messageModel.find({}, { __v: false}).limit(Number(limit)).skip(Number(offset)).exec();
     }
 
     async getMessagesByTargetId(targetId: number): Promise<MessageDto[]> {
-        return await this.messageModel.find({target_id: targetId}).exec();
+        return await this.messageModel.find({target_id: targetId}, { __v: false}).exec();
     }
 
 }
