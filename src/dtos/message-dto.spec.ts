@@ -1,4 +1,4 @@
-import { MessageDto } from './message.dto';
+import { MessageDto } from './message-dto';
 
 describe('MessageDto', () => {
   it('should be defined', () => {

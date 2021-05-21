@@ -1,11 +1,14 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { MessageModule } from './message/message.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MessageController } from './controllers/message/message.controller';
 
 @Module({
-  imports: [MessageModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+
+    MongooseModule.forRoot('mongodb+srv://teste:1324@messagecl.xxday.mongodb.net/MessageCL?retryWrites=true&w=majority')
+
+  ],
+  controllers: [MessageController],
+  providers: [],
 })
 export class AppModule {}
