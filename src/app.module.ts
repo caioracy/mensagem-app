@@ -7,11 +7,10 @@ import { MessagesService } from './services/messages/messages.service';
 
 @Module({
   imports: [
-
-    MongooseModule.forRoot('mongodb+srv://teste:1324@messagecl.xxday.mongodb.net/MessageCL?retryWrites=true&w=majority'),
-    MongooseModule.forFeature([
-      {name: 'message', schema: MessageSchema}]
-    )
+    MongooseModule.forRoot(
+      'mongodb+srv://teste:1324@messagecl.xxday.mongodb.net/MessageCL?retryWrites=true&w=majority',
+    ),
+    MongooseModule.forFeature([{ name: 'message', schema: MessageSchema }]),
   ],
   controllers: [MessageController],
   providers: [MessagesService, MessageRepository],

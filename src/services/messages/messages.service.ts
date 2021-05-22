@@ -1,31 +1,32 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { MessageDto } from 'src/dtos/message-dto';
+import { MessagesDto } from 'src/dtos/messages-dto';
 import MessageRepository from 'src/mongo/repository/message.repository';
 
 @Injectable()
 export class MessagesService {
-    constructor(
-        private readonly messageRepository: MessageRepository
-    ){}
+  constructor(private readonly messageRepository: MessageRepository) {}
 
-    sendMessage(newMessage: MessageDto): Promise<MessageDto> {
-        return this.messageRepository.sendMessage(newMessage);    
-    } 
+  sendMessage(newMessage: MessageDto): Promise<MessageDto> {
+    return this.messageRepository.sendMessage(newMessage);
+  }
 
-    async getAllMessages(limit: string, offset: string): Promise<MessageDto[]> {
-        const allMessages = await this.messageRepository.getAllMessages(limit, offset);
+  async getAllMessages(limit: string, offset: string): Promise<MessagesDto> {
+    const allMessages = await this.messageRepository.getAllMessages(
+      limit,
+      offset,
+    );
 
-        if(!allMessages.length)
-            throw new BadRequestException('Nenhuma mensagem enviada ao servidor')
-        return allMessages;
+    if (!allMessages)
+      throw new BadRequestException('Nenhuma mensagem enviada ao servidor');
+    return allMessages;
+  }
 
-    } 
+  getMessagesByTargetId(targetId: number): Promise<MessageDto[]> {
+    return this.messageRepository.getMessagesByTargetId(targetId);
+  }
 
-    getMessagesByTargetId(targetId: number): Promise<MessageDto[]> {
-        return this.messageRepository.getMessagesByTargetId(targetId);
-    }
-
-    getMessagesFrom(fromId: number): Promise<MessageDto[]> {
-        return this.messageRepository.getMessagesFrom(fromId);
-    }
+  getMessagesFrom(fromId: number): Promise<MessageDto[]> {
+    return this.messageRepository.getMessagesFrom(fromId);
+  }
 }
