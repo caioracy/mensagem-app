@@ -1,0 +1,16 @@
+version: '3'
+services:
+  api:
+    container_name: 'api'
+    build:
+      dockerfile: dockerfile
+      context: .
+    networks:
+      app-mensagens:
+        aliases:
+          - api
+    ports:
+      - '80:3000'
+      - '127.0.0.1:3000:3000'
+networks:
+  app-mensagens:
